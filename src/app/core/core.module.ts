@@ -7,10 +7,10 @@ import { FormComponent } from "./form.component";
 import { SharedState } from "./sharedState.model";
 import { SHARED_STATE } from "./sharedState.model";
 import { Subject } from "rxjs";
-
+import { StatePipe } from "./state.pipe"; 
 @NgModule({
     imports: [BrowserModule, FormsModule, ModelModule],
-    declarations: [TableComponent, FormComponent],
+    declarations: [TableComponent, FormComponent,StatePipe],
     exports: [ModelModule, TableComponent, FormComponent],
     providers: [ {provide : SHARED_STATE , useValue: new Subject<SharedState>()} ]
 })
