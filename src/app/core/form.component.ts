@@ -3,9 +3,10 @@ import { NgForm } from "@angular/forms";
 import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model"
 import { MODES, SharedState } from "./sharedState.model";
-import {  SHARED_STATE } from "./sharedState.model";
+import { SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
-import { filter } from "rxjs/operators"; 
+import { filter } from "rxjs/operators";
+import { map } from "rxjs/operators";
 @Component({
     selector: "paForm",
     templateUrl: "form.component.html",
@@ -17,13 +18,17 @@ export class FormComponent {
     constructor(private model: Model,
         @Inject(SHARED_STATE) private stateEvents: Observable<SharedState>
     ) {
-        stateEvents.pipe(filter(state => state.id != 3)).subscribe((update) => {
-            this.product = new Product();
-            if (update.id != undefined) {
-                Object.assign(this.product, this.model.getProduct(update.id));
-            }
-            this.editing = update.mode == MODES.EDIT;
-        });
+        stateEvents
+            .pipe(map(state =>
+                new SharedState(state.mode, state.id == 5 ? 1 : state.id))
+            )
+            .pipe(filter(state => state.id != 3)).subscribe((update) => {
+                this.product = new Product();
+                if (update.id != undefined) {
+                    Object.assign(this.product, this.model.getProduct(update.id));
+                }
+                this.editing = update.mode == MODES.EDIT;
+            });
     }
 
     submitForm(form: NgForm) {
