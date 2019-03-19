@@ -5,6 +5,7 @@ import { Model } from "../model/repository.model"
 import { MODES, SharedState } from "./sharedState.model";
 import {  SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
+import { filter } from "rxjs/operators"; 
 @Component({
     selector: "paForm",
     templateUrl: "form.component.html",
@@ -16,7 +17,7 @@ export class FormComponent {
     constructor(private model: Model,
         @Inject(SHARED_STATE) private stateEvents: Observable<SharedState>
     ) {
-        stateEvents.subscribe((update) => {
+        stateEvents.pipe(filter(state => state.id != 3)).subscribe((update) => {
             this.product = new Product();
             if (update.id != undefined) {
                 Object.assign(this.product, this.model.getProduct(update.id));
