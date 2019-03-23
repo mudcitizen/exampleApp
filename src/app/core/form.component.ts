@@ -22,15 +22,15 @@ export class FormComponent {
         @Inject(SHARED_STATE) private stateEvents: Observable<SharedState>
     ) {
         stateEvents
-            .pipe(distinctUntilChanged((firstState,secondState)  => firstState.mode == secondState.mode && firstState.id == secondState.id
-            ))
-            .pipe(skipWhile((state : SharedState, index: number) : boolean => {
-                let returnValue : boolean = state.mode == MODES.EDIT;
-                console.log(`FormComponent skipWhile - Mode - ${state.mode} ; Id - ${state.id} ; Index = ${index} ; return ${returnValue}`)
+            // .pipe(distinctUntilChanged((firstState,secondState)  => firstState.mode == secondState.mode && firstState.id == secondState.id
+            // ))
+            // .pipe(skipWhile((state : SharedState, index: number) : boolean => {
+            //     let returnValue : boolean = state.mode == MODES.EDIT;
+            //     console.log(`FormComponent skipWhile - Mode - ${state.mode} ; Id - ${state.id} ; Index = ${index} ; return ${returnValue}`)
 
-                return returnValue;
-            }))
-            .pipe(filter((state : SharedState) => state.id != 3))
+            //     return returnValue;
+            // }))
+            // .pipe(filter((state : SharedState) => state.id != 3))
             .subscribe((state : SharedState) => {
                 console.log(`FormComponent next - Mode - ${state.mode} ; Id - ${state.id}`)
                 this.editing = state.mode == MODES.EDIT;
