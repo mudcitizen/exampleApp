@@ -8,6 +8,7 @@ import { Observable } from "rxjs";
 import { filter } from "rxjs/operators";
 import { map } from "rxjs/operators";
 import { distinctUntilChanged } from "rxjs/operators";
+import { skipWhile } from "rxjs/operators";
 
 @Component({
     selector: "paForm",
@@ -23,8 +24,15 @@ export class FormComponent {
         stateEvents
             .pipe(distinctUntilChanged((firstState,secondState)  => firstState.mode == secondState.mode && firstState.id == secondState.id
             ))
+            .pipe(skipWhile((state : SharedState, index: number) : boolean => {
+                let returnValue : boolean = state.mode == MODES.EDIT;
+                console.log(`FormComponent skipWhile - Mode - ${state.mode} ; Id - ${state.id} ; Index = ${index} ; return ${returnValue}`)
+
+                return returnValue;
+            }))
             .pipe(filter((state : SharedState) => state.id != 3))
             .subscribe((state : SharedState) => {
+                console.log(`FormComponent next - Mode - ${state.mode} ; Id - ${state.id}`)
                 this.editing = state.mode == MODES.EDIT;
                 this.product = new Product();
                 if (state.id != undefined)
