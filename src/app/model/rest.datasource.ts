@@ -1,5 +1,6 @@
 import { Injectable, Inject, InjectionToken } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Product } from "./product.model";
 export const REST_URL = new InjectionToken("rest_url");
@@ -20,6 +21,12 @@ export class RestDataSource {
     return this.sendRequest<Product>("DELETE", `${this.url}/${id}`);
   }
   private sendRequest<T>(verb: string, url: string, body?: Product): Observable<T> {
-    return this.http.request<T>(verb, url, {body: body});
+    let httpHeaders: HttpHeaders = new HttpHeaders({
+      "Access-Key": "<secret>",
+      "Application-Name": "exampleApp"
+    }
+    );
+    return this.http.request<T>(verb, url, { body: body, headers: httpHeaders }
+    );
   }
 }
