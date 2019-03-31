@@ -31,8 +31,8 @@ export class RestDataSource {
     ).pipe(
       catchError((error: Response) => {
         let wtfUrl : string = error.url;
-        let errMess:string = `catchError - Network Error: ${error.statusText} (${error.status})`
-        console.log(errMess);
+        let errMess:string = `Network Error: ${error.statusText} (${error.status})`;
+        console.log('catchError - ' + errMess);
         return throwError(errMess)
       }   // 
       )   // end of catchErorr() function
