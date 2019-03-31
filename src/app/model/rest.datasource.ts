@@ -1,7 +1,8 @@
 import { Injectable, Inject, InjectionToken } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
 import { Product } from "./product.model";
 export const REST_URL = new InjectionToken("rest_url");
 @Injectable()
@@ -27,6 +28,14 @@ export class RestDataSource {
     }
     );
     return this.http.request<T>(verb, url, { body: body, headers: httpHeaders }
-    );
+    ).pipe(
+      catchError((error: Response) => {
+        let wtfUrl : string = error.url;
+        let errMess:string = `catchError - Network Error: ${error.statusText} (${error.status})`
+        console.log(errMess);
+        return throwError(errMess)
+      }   // 
+      )   // end of catchErorr() function
+      )   // end of pipe() function
   }
 }

@@ -30,7 +30,7 @@ export class FormComponent {
 
             //     return returnValue;
             // }))
-            // .pipe(filter((state : SharedState) => state.id != 3))
+            //.pipe(filter((state : SharedState) => state.id != 3))
             .subscribe((state : SharedState) => {
                 console.log(`FormComponent next - Mode - ${state.mode} ; Id - ${state.id}`)
                 this.editing = state.mode == MODES.EDIT;
