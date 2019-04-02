@@ -5,10 +5,7 @@ import { Model } from "../model/repository.model"
 import { MODES, SharedState } from "./sharedState.model";
 import { SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
-import { filter } from "rxjs/operators";
-import { map } from "rxjs/operators";
-import { distinctUntilChanged } from "rxjs/operators";
-import { skipWhile } from "rxjs/operators";
+import { ActivatedRoute } from "@angular/router"; 
 
 @Component({
     selector: "paForm",
@@ -18,28 +15,10 @@ import { skipWhile } from "rxjs/operators";
 export class FormComponent {
     product: Product = new Product();
     editing: boolean;
-    constructor(private model: Model,
-        @Inject(SHARED_STATE) private stateEvents: Observable<SharedState>
-    ) {
-        stateEvents
-            // .pipe(distinctUntilChanged((firstState,secondState)  => firstState.mode == secondState.mode && firstState.id == secondState.id
-            // ))
-            // .pipe(skipWhile((state : SharedState, index: number) : boolean => {
-            //     let returnValue : boolean = state.mode == MODES.EDIT;
-            //     console.log(`FormComponent skipWhile - Mode - ${state.mode} ; Id - ${state.id} ; Index = ${index} ; return ${returnValue}`)
-
-            //     return returnValue;
-            // }))
-            //.pipe(filter((state : SharedState) => state.id != 3))
-            .subscribe((state : SharedState) => {
-                this.editing = state.mode == MODES.EDIT;
-                this.product = new Product();
-                if (state.id != undefined)
-                {
-                    Object.assign(this.product,this.model.getProduct(state.id));
-                }
-                console.log(`FormComponent next - SharedState - ${state.toString()} ; Product - ${this.product.toString()}`)
-            });
+    constructor(private model: Model,  activeRoute: ActivatedRoute)
+     {
+        this.editing = activeRoute.snapshot.url[1].path == "edit";
+        console.log(`FormComponent.constructor())`);
     }
 
     submitForm(form: NgForm) {
