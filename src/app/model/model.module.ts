@@ -8,7 +8,7 @@ import { RestDataSource, REST_URL } from "./rest.datasource";
     {
         imports: [HttpClientModule],
         providers: [Model, RestDataSource,
-            { provide : REST_URL , useValue: `http://${location.hostname}:3500/products`}
+            { provide : REST_URL , useValue: `http://${location.hostname}:3500/products`}]
     }
 )
 export class ModelModule { }

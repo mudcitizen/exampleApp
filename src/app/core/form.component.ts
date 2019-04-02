@@ -32,13 +32,13 @@ export class FormComponent {
             // }))
             //.pipe(filter((state : SharedState) => state.id != 3))
             .subscribe((state : SharedState) => {
-                console.log(`FormComponent next - Mode - ${state.mode} ; Id - ${state.id}`)
                 this.editing = state.mode == MODES.EDIT;
                 this.product = new Product();
                 if (state.id != undefined)
                 {
                     Object.assign(this.product,this.model.getProduct(state.id));
                 }
+                console.log(`FormComponent next - SharedState - ${state.toString()} ; Product - ${this.product.toString()}`)
             });
     }
 
