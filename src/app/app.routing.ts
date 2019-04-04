@@ -4,6 +4,7 @@ import { FormComponent } from "./core/form.component";
 
 // here we see the url / component pairs
 const routes: Routes = [
+    { path: "form/:mode/:id", component: FormComponent },
     { path: "form/:mode", component: FormComponent },
     { path: "", component: TableComponent }]
 
