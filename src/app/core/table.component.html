@@ -13,7 +13,8 @@
           <button class="btn btn-danger btn-sm" (click)="deleteProduct(item.id)">
               Delete
           </button>
-          <button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" [routerLink]="['/form','edit',item.id]">
+          <button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" 
+          [routerLink]="['/form','edit',item.id, {name : item.name, category : item.category,price : item.price}]">
               Edit
           </button>
       </td>
