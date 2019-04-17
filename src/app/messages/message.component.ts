@@ -16,7 +16,7 @@ export class MessageComponent {
         messageService.messages.subscribe(m => this.lastMessage = m);
         router.events
         .pipe(filter( 
-            (e:Event) => {e instanceof NavigationEnd || e instanceof NavigationCancel})
+            (e:Event) => e instanceof NavigationEnd || e instanceof NavigationCancel)
             )
         .subscribe( (e:Event) => {this.lastMessage = null;})
     }
