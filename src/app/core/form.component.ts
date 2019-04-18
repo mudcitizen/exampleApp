@@ -2,7 +2,7 @@ import { Component, Inject } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model"
-import { MODES, SharedState } from "./sharedState.model";
+import { MODES} from "./sharedState.model";
 import { SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
 import { ActivatedRoute } from "@angular/router";

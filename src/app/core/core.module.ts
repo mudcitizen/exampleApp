@@ -4,7 +4,6 @@ import { FormsModule } from "@angular/forms";
 import { ModelModule } from "../model/model.module";
 import { TableComponent } from "./table.component";
 import { FormComponent } from "./form.component";
-import { SharedState } from "./sharedState.model";
 import { SHARED_STATE } from "./sharedState.model";
 import { Subject } from "rxjs";
 import { StatePipe } from "./state.pipe";
@@ -15,13 +14,6 @@ import { RouterModule } from "@angular/router";
 @NgModule({
     imports: [BrowserModule, FormsModule, ModelModule, MessageModule,RouterModule],
     declarations: [TableComponent, FormComponent, StatePipe],
-    exports: [ModelModule, TableComponent, FormComponent],
-    providers: [{
-        provide: SHARED_STATE,
-        deps: [MessageService, Model],
-        useFactory: () => {
-            return new Subject<SharedState>();
-        }
-    }]
+    exports: [ModelModule, TableComponent, FormComponent]
 })
 export class CoreModule { }
