@@ -18,10 +18,7 @@ export class FormComponent {
     editing: boolean;
     constructor(private model: Model, activeRoute: ActivatedRoute, private router: Router) {
         this.editing = activeRoute.snapshot.params["mode"] == "edit";
-        let id = activeRoute.snapshot.params["id"];
-        if (id != null) {
-            Object.assign(this.product, model.getProduct(id) || new Product());
-        }
+        activeRoute.params.subscribe(params => this.setProduct(params['id']))
     }
 
     submitForm(form: NgForm) {
@@ -42,5 +39,11 @@ export class FormComponent {
     }
     resetForm() {
         this.product = new Product();
+    }
+
+    private setProduct(id:number) {
+        if (id != null) {
+            Object.assign(this.product, this.model.getProduct(id) || new Product());
+        }
     }
 }

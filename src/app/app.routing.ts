@@ -14,4 +14,4 @@ const routes: Routes = [
 ]
 
 // RouterModule.forRoot() creates a Module
-export const routing = RouterModule.forRoot(routes);
+export const routing = RouterModule.forRoot(routes, {enableTracing:false });
