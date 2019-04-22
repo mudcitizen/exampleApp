@@ -17,9 +17,14 @@ export class FormComponent {
     product: Product = new Product();
     editing: boolean;
     constructor(private model: Model, activeRoute: ActivatedRoute, private router: Router) {
-        this.editing = activeRoute.snapshot.params["mode"] == "edit";
-        activeRoute.params.subscribe(params => this.setProduct(params['id']))
-    }
+        activeRoute.params.subscribe(params => {
+            this.editing = params["mode"] == "edit";
+            let id = params["id"];
+            if ((id)) {
+                Object.assign(this.product, this.model.getProduct(id) || new Product());
+            }});
+          
+            }
 
     submitForm(form: NgForm) {
         if (form.valid) {
@@ -41,9 +46,4 @@ export class FormComponent {
         this.product = new Product();
     }
 
-    private setProduct(id:number) {
-        if (id != null) {
-            Object.assign(this.product, this.model.getProduct(id) || new Product());
-        }
-    }
 }
