@@ -21,7 +21,8 @@ export class FormComponent {
             this.editing = params["mode"] == "edit";
             let id = params["id"];
             if ((id)) {
-                Object.assign(this.product, this.model.getProduct(id) || new Product());
+                let prod: Product = this.model.getProduct(id);
+                Object.assign(this.product, prod || new Product());
             }});
           
             }
