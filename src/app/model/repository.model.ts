@@ -9,7 +9,12 @@ export class Model {
 
     private locator = (p: Product, id: number) => p.id == id;
     constructor(private dataSource: RestDataSource) {
-        this.dataSource.getData().subscribe(data => this.products = data);
+        console.log("Model CTOR")
+
+        this.dataSource.getData().subscribe(data => {
+            console.log("Model has received data")
+            this.products = data
+        });
     }
     getProducts(): Product[] {
         return this.products;

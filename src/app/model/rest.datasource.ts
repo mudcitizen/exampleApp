@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { delay } from "rxjs/operators";
 import { Product } from "./product.model";
 export const REST_URL = new InjectionToken("rest_url");
 @Injectable()
@@ -22,13 +23,15 @@ export class RestDataSource {
     return this.sendRequest<Product>("DELETE", `${this.url}/${id}`);
   }
   private sendRequest<T>(verb: string, url: string, body?: Product): Observable<T> {
+    console.log("RestDataSource.sendRequest",verb)
     let httpHeaders: HttpHeaders = new HttpHeaders({
       "Access-Key": "<secret>",
       "Application-Name": "exampleApp"
     }
     );
     return this.http.request<T>(verb, url, { body: body, headers: httpHeaders }
-    ).pipe(
+    ).pipe(delay(3000))
+    .pipe(
       catchError((error: Response) => {
         let wtfUrl : string = error.url;
         let errMess:string = `Network Error: ${error.statusText} (${error.status})`;
