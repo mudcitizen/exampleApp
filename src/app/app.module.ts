@@ -6,12 +6,14 @@ import { CoreModule } from "./core/core.module";
 import { MessageModule } from "./messages/message.module";
 import { routing } from "./app.routing";
 import { AppComponent } from "./app.component"
+import {TermsGuard } from "./terms.guard";
 
 @NgModule({
   imports: [
     BrowserModule,ModelModule,CoreModule,MessageModule,routing
   ],
   declarations: [AppComponent],
+  providers: [TermsGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
