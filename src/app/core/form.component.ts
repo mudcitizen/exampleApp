@@ -15,14 +15,16 @@ import { Router } from "@angular/router";
 })
 export class FormComponent {
     product: Product = new Product();
+    originalProduct: Product = new Product();
+
     editing: boolean;
     constructor(private model: Model, activeRoute: ActivatedRoute, private router: Router) {
         activeRoute.params.subscribe(params => {
             this.editing = params["mode"] == "edit";
             let id = params["id"];
             if ((id)) {
-                let prod: Product = this.model.getProduct(id);
-                Object.assign(this.product, prod || new Product());
+                Object.assign(this.product, this.model.getProduct(id));
+                Object.assign(this.originalProduct, this.product);
             }});
           
             }
@@ -30,6 +32,7 @@ export class FormComponent {
     submitForm(form: NgForm) {
         if (form.valid) {
             this.model.saveProduct(this.product);
+            this.originalProduct = this.product;
             /*
             the following change is not related the 
             the change for routing...   This component
@@ -43,8 +46,8 @@ export class FormComponent {
             this.router.navigateByUrl("/");
         }
     }
-    resetForm() {
-        this.product = new Product();
-    }
+    // resetForm() {
+    //     this.product = new Product();
+    // }
 
 }
