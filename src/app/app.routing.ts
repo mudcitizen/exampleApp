@@ -20,6 +20,10 @@ const childRoutes: Routes = [
 
 // here we see the url / component pairs
 const routes: Routes = [
+    {
+        path: "ondemand",
+        loadChildren: "./ondemand/ondemand.module#OndemandModule"
+    },
     { path: "form/:mode/:id", component: FormComponent,  resolve: { model: ModelResolver }, canDeactivate: [UnsavedGuard] },
     { path: "form/:mode", component: FormComponent, resolve: { model: ModelResolver } , canActivate: [TermsGuard]},
     { path: "table", component: TableComponent, children: childRoutes },
