@@ -7,13 +7,12 @@ import { MessageModule } from "./messages/message.module";
 import { routing } from "./app.routing";
 import { AppComponent } from "./app.component"
 import {TermsGuard } from "./terms.guard";
-import { OndemandComponent } from './ondemand/ondemand.component';
 
 @NgModule({
   imports: [
     BrowserModule,ModelModule,CoreModule,MessageModule,routing
   ],
-  declarations: [AppComponent, OndemandComponent],
+  declarations: [AppComponent],
   providers: [TermsGuard],
   bootstrap: [AppComponent]
 })
