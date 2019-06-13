@@ -19,8 +19,16 @@ const childRoutes: Routes = [
         resolve: { model: ModelResolver }
     }];
 
+    const routes: Routes = [
+        {
+            path: "ondemand",
+            loadChildren: "./ondemand/ondemand.module#OndemandModule"
+        },
+        { path: "", redirectTo: "/ondemand", pathMatch: "full" }
+    ]
+    
 // here we see the url / component pairs
-const routes: Routes = [
+/* const routes: Routes = [
     {
         path: "ondemand",
         loadChildren: "./ondemand/ondemand.module#OndemandModule",
@@ -33,5 +41,5 @@ const routes: Routes = [
     { path: "", redirectTo: "/table", pathMatch: "full" },
     { path: "**", component: NotFoundComponent }
 ]
-// RouterModule.forRoot() creates a Module
+ */// RouterModule.forRoot() creates a Module
 export const routing = RouterModule.forRoot(routes, { enableTracing: false });
