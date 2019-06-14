@@ -13,10 +13,12 @@ import { Router, Event,NavigationEnd,NavigationCancel } from "@angular/router" ;
 export class MessageComponent {
     lastMessage: Message;
     constructor(messageService: MessageService, private router : Router) {
+        let wtf:number = 0;
+        let wtfs:string = "have a day";
         messageService.messages.subscribe(m => this.lastMessage = m);
         router.events
         .pipe(filter( 
-            (e:Event) => e instanceof NavigationEnd || e instanceof NavigationCancel)
+            (e:Event, index:number) => {return e instanceof NavigationEnd || e instanceof NavigationCancel})
             )
         .subscribe( (e:Event) => {this.lastMessage = null;})
     }
